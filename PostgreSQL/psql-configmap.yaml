@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres
+  name: postgres-configmap
 data:
-  PSQL_DB_NAME: postgres-db
+  POSTGRES_DB: postgres-db
