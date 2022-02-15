@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:12.4-alpine
+        image: postgres:latest
+        resources:
+          limits:
+            memory: 200Mi
+            cpu: 2
         ports:
           - containerPort: 5432
         envFrom:
