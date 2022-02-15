@@ -3,8 +3,12 @@
 create_cluster() {
     minikube config set driver docker
     minikube start
+    echo "Minikube status:"
     minikube status
+    echo -n "##### END #####\n"
+    echo "Get all:"
     kubectl get all
+    echo -n "##### END #####\n"
 }
 
 install_docker() {
@@ -14,6 +18,9 @@ install_docker() {
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
     sudo apt update
     sudo apt-get install docker-ce
+    docker --version
+    sudo systemctl start docker
+    sudo systemctl enable docker
 }
 
 is_docker_installed() {
