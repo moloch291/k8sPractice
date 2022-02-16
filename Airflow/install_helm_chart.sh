@@ -1,5 +1,19 @@
 #!/bin/bash
 
+prepare_airflow() {
+    echo "Creating values.yaml..."
+    helm show values apache-airflow/airflow > values.yaml
+    EXIT_CODE=$(echo $?)
+    if [ $EXIT_CODE != 0 ]; then
+        echo "An error occured, pls try manually!"
+    else
+        echo "Airflow's values.yaml is ready!"
+        echo -n "##### END #####\n"
+    fi
+    echo "Port forwarding (localhost:8080):"
+    kubectl port-forward svc/airflow-webserver 8080:8080 -n airflow
+}
+
 install_chart() {
     helm upgrade --install airflow apache-airflow/airflow --namespace airflow --create-namespace
     EXIT_CODE=$(echo $?)
@@ -30,12 +44,7 @@ main() {
     echo "Installing chart:"
     install_chart
     echo -n "##### END #####\n"
-    echo "Creating values.yaml:"
-    helm show values apache-airflow/airflow > values.yaml
-    echo -n "##### END #####\n"
-    echo "Port forwarding:"
-    kubectl port-forward svc/airflow-webserver 8080:8080 -n airflow
-    echo -n "##### END TASK #####\n"
+    prepare_airflow
 }
 
 main
