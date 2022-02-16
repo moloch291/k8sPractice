@@ -21,9 +21,10 @@
 .history
 .ionide
 
-# Ignore data directory:
+# Ignore data directory and values.yaml:
 data/
 initData.zip
+Airflow/values.yaml
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
