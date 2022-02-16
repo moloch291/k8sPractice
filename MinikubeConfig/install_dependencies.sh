@@ -1,5 +1,21 @@
 #!/bin/bash
 
+install_helm() {
+    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    chmod 700 get_helm.sh
+    ./get_helm.sh
+}
+
+is_helm_installed() {
+    helm version
+    EXIT_CODE=$(echo $?)
+    if [ $EXIT_CODE != 0 ]; then
+        install_helm
+    else
+        echo "Helm is already installed!"
+    fi
+}
+
 install_docker() {
     sudo apt update
     sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
@@ -69,6 +85,9 @@ main() {
     echo -n "##### END #####\n"
     echo "Check on Docker:"
     is_docker_installed
+    echo -n "##### END #####\n"
+    echo "Check on Helm:"
+    is_helm_installed
     echo -n "##### END TASK #####\n"
 }
 
