@@ -29,6 +29,12 @@ main() {
     echo -n "##### END #####\n"
     echo "Installing chart:"
     install_chart
+    echo -n "##### END #####\n"
+    echo "Creating values.yaml:"
+    helm show values apache-airflow/airflow > values.yaml
+    echo -n "##### END #####\n"
+    echo "Port forwarding:"
+    kubectl port-forward svc/airflow-webserver 8080:8080 -n airflow
     echo -n "##### END TASK #####\n"
 }
 
